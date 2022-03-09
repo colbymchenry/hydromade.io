@@ -4,6 +4,7 @@
     background-color: #f2f2f2; 
     border-radius: 0.15em;
     transition: all 0.2s ease-in-out;
+    position: relative;
 }
 
 .buttonSubmit:hover {
@@ -20,17 +21,20 @@
     font-weight: lighter;
 }
 
-.buttonSubmit > div > i {
+.buttonSubmit > div > svg {
     animation-name: spin;
     animation-duration: 1600ms;
     animation-iteration-count: infinite;
     animation-timing-function: linear; 
+    width: 32px;
+    height: 32px;
 }
 
 .buttonSubmit > div {
     border-left: 0.5px solid #a6a6a6;
     padding-left: 0.8em;
     padding-right: 0.5em;
+    position: unset !important;
 }
 
 .buttonSubmit:disabled > div {

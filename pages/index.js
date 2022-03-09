@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import styles from '../styles/Home.module.css'
 import { useState } from 'react';
-import CreateAccountModal from '../components/CreateAccountModal';
+import AuthModal from '../components/AuthModal';
 import { toggleFullscreenScroll } from '../utils/modal-utils';
 
 export default function Home() {
@@ -66,8 +66,9 @@ export default function Home() {
         </div>
       </main>
     </div>
-    {showRegister && <CreateAccountModal close={() => {
+    {(showRegister || showLogin) && <AuthModal login={showLogin} close={() => {
       setShowRegister(false);
+      setShowLogin(false);
       toggleFullscreenScroll(true);
     }} />}
     </>
