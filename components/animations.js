@@ -1,5 +1,49 @@
 import { useSpring, animated } from 'react-spring'
 
+export const ComeIntoView = () => useSpring({
+    from: { 
+        top: "calc(-100vh)"
+    },
+    to: { 
+        top: "0" 
+    }
+});
+
+export const GoOutOfView = (delay, onRest) => useSpring({
+    from: { 
+        top: "0" 
+    },
+    to: { 
+        top: "-100vh"
+    },
+    onRest,
+    delay
+});
+
+export const FadeInUp = (delay) => useSpring({
+    from: { 
+        opacity: 0,
+        height: "0"
+    },
+    to: { 
+        opacity: 1,
+        height: "5em"
+    },
+    delay
+});
+
+export const FadeOutDown = (delay) => useSpring({
+    to: { 
+        opacity: 0,
+        height: "0"
+    },
+    from: { 
+        opacity: 1,
+        height: "5em"
+    },
+    delay
+});
+
 export const FadeAnimation = (delay) => useSpring({
     from: { 
         opacity: 0 
