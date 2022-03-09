@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import styles from '../styles/Home.module.css'
 import { useState } from 'react';
 import CreateAccountModal from '../components/CreateAccountModal';
+import { toggleFullscreenScroll } from '../utils/modal-utils';
 
 export default function Home() {
 
