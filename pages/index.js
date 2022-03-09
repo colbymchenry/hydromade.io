@@ -65,7 +65,10 @@ export default function Home() {
         </div>
       </main>
     </div>
-    {showRegister && <CreateAccountModal close={() => setShowRegister(false)} />}
+    {showRegister && <CreateAccountModal close={() => {
+      setShowRegister(false);
+      toggleFullscreenScroll(true);
+    }} />}
     </>
   )
 }
