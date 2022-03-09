@@ -40,6 +40,7 @@
     background-color: rgba(0, 0, 0, 0);
     border: none;
     border-bottom: 2px solid #d8c19f;
+    border-radius: 0px;
 }
 
 .container > div input::placeholder {
