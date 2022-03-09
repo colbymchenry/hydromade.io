@@ -2,7 +2,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
@@ -13,4 +13,24 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.btn-black {
+  border: none;
+  padding: 0.25em 0.75em;
+  border-radius: 0.15em;
+  background-color: black;
+  color: white;
+}
+
+.btn-black:hover {
+  color: white;
+  background-color: rgb(43, 43, 43);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+  transition: background-color 5000s ease-in-out 0s;
 }

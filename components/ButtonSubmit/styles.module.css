@@ -1,0 +1,47 @@
+.buttonSubmit {
+    align-self: flex-start;
+    border: 0.5px solid #a6a6a6;
+    background-color: #f2f2f2; 
+    border-radius: 0.15em;
+    transition: all 0.2s ease-in-out;
+}
+
+.buttonSubmit:hover {
+    background-color: #d9d9d9; 
+}
+
+.buttonSubmit:disabled {
+    border: 0.5px solid #d9dad7;
+    color: #a6a6a6;
+}
+
+.buttonSubmit > span {
+    padding: 0.5em 1em 0.5em 1em;
+    font-weight: lighter;
+}
+
+.buttonSubmit > div > i {
+    animation-name: spin;
+    animation-duration: 1600ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; 
+}
+
+.buttonSubmit > div {
+    border-left: 0.5px solid #a6a6a6;
+    padding-left: 0.8em;
+    padding-right: 0.5em;
+}
+
+.buttonSubmit:disabled > div {
+    border-left: 0.5px solid #d9dad7;
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
