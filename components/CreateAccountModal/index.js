@@ -10,7 +10,6 @@ import { FadeInUp, FadeOutDown, GoOutOfView, ComeIntoView } from '../animations'
 export default function CreateAccountModal(props) {
 
     const [close, setClose] = useState(false);
-    const [triggerLeave, setTriggerLeave] = useState(false);
 
     useEffect(() => {
      toggleFullscreenScroll(false)   
