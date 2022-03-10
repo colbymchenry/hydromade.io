@@ -94,7 +94,7 @@ export default function AuthModal(props) {
                         <div className={styles.label}><small>Password Confirmation</small>{errors?.password_confirmation && <small className={styles.error_label}>{errors.password_confirmation.message}</small>}</div>
                     </animated.div>
                     <animated.div style={close || completed ? FadeOutDown(200) : FadeInUp(500)} className={`w-100 d-flex justify-content-center ${styles.margin4}`}>
-                        <ButtonSubmit label={props.login ? "Login" : "Create Account"} style={{ minWidth: '220px' }} processing={processing} />
+                        <ButtonSubmit label={props.login ? "Login" : "Create Account"} style={{ minWidth: '240px' }} processing={processing} />
                     </animated.div>
                 </form>
 
