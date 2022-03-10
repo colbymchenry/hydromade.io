@@ -1,8 +1,9 @@
 import styles from './styles.module.css'
 import {useAuth} from "../../contexts/AuthContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faArrowRightFromBracket, faDoorOpen} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRightFromBracket, faDoorOpen, faHome, faStore} from "@fortawesome/free-solid-svg-icons";
 import {useRouter} from "next/router";
+import {faBuromobelexperte} from "@fortawesome/free-brands-svg-icons";
 
 export default function Navbar(props) {
 
@@ -18,7 +19,8 @@ export default function Navbar(props) {
         <div className={styles.navbar}>
 
             <div className={styles.topContent}>
-
+                <NavItem icon={faHome} url={"/app"} label={"Dashboard"} router={router} />
+                <NavItem icon={faStore} url={"/app/marketplace"} label={"Marketplace"} router={router} />
             </div>
 
             <div className={styles.bottomContent}>
@@ -29,4 +31,13 @@ export default function Navbar(props) {
         </div>
     )
 
+}
+
+function NavItem({label, url, icon, router}) {
+    return (
+        <div className={styles.navItem + ' ' + (router.pathname === url ? styles.active : '')} onClick={() => router.push(url)}>
+            <FontAwesomeIcon icon={icon} />
+            <span>{label}</span>
+        </div>
+    )
 }

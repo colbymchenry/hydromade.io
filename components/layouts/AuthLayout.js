@@ -40,7 +40,7 @@ export function AuthLayout(props) {
     return (
         <div className="d-flex">
             <Navbar />
-            <div className="p-5">
+            <div className="p-5 w-100" style={{ position: 'relative' }}>
                 {props.children}
             </div>
         </div>
