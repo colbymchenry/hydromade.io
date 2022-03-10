@@ -16,7 +16,7 @@ export const GoOutOfView = (delay, onRest) => useSpring({
         top: "0" 
     },
     to: { 
-        top: "-100vh"
+        top: "-130vh"
     },
     onRest,
     delay
