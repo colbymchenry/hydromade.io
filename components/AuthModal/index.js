@@ -39,7 +39,7 @@ export default function AuthModal(props) {
                 return;
             }
 
-            if (data.password !== data.password_confirmation) {
+            if (!props.login && data.password !== data.password_confirmation) {
                 setError("password_confirmation", {
                     type: "manual",
                     message: "Passwords do not match.",
@@ -56,7 +56,6 @@ export default function AuthModal(props) {
             }
 
             setCompleted(true);
-            // router.push('/dashboard/appointments')
         } catch(e) {
             console.error(e)
             console.log(e?.code)
@@ -81,18 +80,26 @@ export default function AuthModal(props) {
             <button type="button" onClick={() => setClose(true)}><FontAwesomeIcon icon={faX} /></button>
             <div>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <animated.div style={close || completed ? FadeOutDown(500) : FadeInUp(200)} className={`w-100 ${styles.margin1}`}>
+                    <animated.div style={close || completed ? FadeOutDown(500) : FadeInUp(200)} className={`w-100 ${props.login ? styles.margin2 : styles.margin1}`}>
                         <input {...register("email", { required: true })} type="email" placeholder="me@example.com" className={errors?.email ? styles.error : ''} />
                         <div className={styles.label}><small>Email</small>{errors?.email && <small className={styles.error_label}>{errors.email.message}</small>}</div>
                     </animated.div>
-                    <animated.div style={close || completed ? FadeOutDown(400) : FadeInUp(300)} className={`w-100 ${styles.margin2}`}>
+                    <animated.div style={close || completed ? FadeOutDown(400) : FadeInUp(300)} className={`w-100 ${props.login ? styles.margin3 : styles.margin2}`}>
                         <input {...register("password", { required: true })} type="password" className={errors?.password ? styles.error : ''} placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" />
                         <div className={styles.label}><small>Password (at least 8 characters)</small>{errors?.password && <small className={styles.error_label}>{errors.password.message}</small>}</div>
                     </animated.div>
-                    <animated.div style={close || completed ? FadeOutDown(300) : FadeInUp(400)} className={`w-100 ${styles.margin3}`}>
-                        <input {...register("password_confirmation", { required: true })} type="password" className={errors?.password_confirmation ? styles.error : ''} placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" />
-                        <div className={styles.label}><small>Password Confirmation</small>{errors?.password_confirmation && <small className={styles.error_label}>{errors.password_confirmation.message}</small>}</div>
-                    </animated.div>
+                    {!props.login &&
+                        <animated.div style={close || completed ? FadeOutDown(300) : FadeInUp(400)}
+                                      className={`w-100 ${styles.margin3}`}>
+                            <input {...register("password_confirmation", {required: true})} type="password"
+                                   className={errors?.password_confirmation ? styles.error : ''}
+                                   placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"/>
+                            <div className={styles.label}><small>Password
+                                Confirmation</small>{errors?.password_confirmation &&
+                                <small className={styles.error_label}>{errors.password_confirmation.message}</small>}
+                            </div>
+                        </animated.div>
+                    }
                     <animated.div style={close || completed ? FadeOutDown(200) : FadeInUp(500)} className={`w-100 d-flex justify-content-center ${styles.margin4}`}>
                         <ButtonSubmit label={props.login ? "Login" : "Create Account"} style={{ minWidth: '240px' }} processing={processing} />
                     </animated.div>
