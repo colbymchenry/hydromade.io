@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import ButtonSubmit from "../ButtonSubmit/ButtonSubmit";
 import {sendEmailVerification} from "firebase/auth";
+import Navbar from "../Navbar";
 
 export function AuthLayout(props) {
 
@@ -37,8 +38,11 @@ export function AuthLayout(props) {
     }
 
     return (
-        <div className="p-5">
-            {props.children}    
+        <div className="d-flex">
+            <Navbar />
+            <div className="p-5">
+                {props.children}
+            </div>
         </div>
     )
 

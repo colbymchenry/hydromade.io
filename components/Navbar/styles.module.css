@@ -1,0 +1,31 @@
+.navbar {
+    height: 100vh;
+    width: 265px;
+    top: 0;
+    left: 0;
+    background-color: #1e1e2d;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #9899ac;
+}
+
+.bottomContent {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 0.4rem;
+}
+
+.bottomContent > svg {
+    cursor: pointer;
+    transition: color .3s ease;
+    width: 1rem;
+    height: 1rem;
+}
+
+.bottomContent > svg:hover {
+    color: #009ef7;
+}

@@ -50,6 +50,7 @@ export default function AuthModal(props) {
 
             if (props.login) {
                 await login(data['email'], data['password']);
+                router.push('/app');
             } else {
                 const user = await signup(data['email'], data['password']);
                 await sendEmailVerification(user.user);
