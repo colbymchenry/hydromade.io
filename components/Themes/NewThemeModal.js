@@ -77,7 +77,10 @@ export function NewThemeModal(props) {
             })
 
             setClosing(true);
-            setTimeout(() => props.setCreatingTheme(false), 500);
+            setTimeout(() => {
+                props.setCreatingTheme(false);
+                props.fetchThemes();
+            }, 500);
         } catch (err) {
             console.error(err);
         }
@@ -94,8 +97,6 @@ export function NewThemeModal(props) {
             )
         })
     }
-
-    console.log(errors)
 
     return (
         <>

@@ -35,6 +35,39 @@
     flex-direction: column;
 }
 
+.theme {
+    border-bottom: 1px solid #dadada;
+    padding: 1rem;
+}
+
+.delete {
+    background-color: red;
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.15em;
+    border: 0.5px solid darkred;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.delete:hover {
+    background-color: #dc0101;
+}
+
+.themeInfo {
+    position: relative;
+    padding-right: 1rem;
+}
+
+
+.themeInfo svg {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
 .newThemeModel {
     position: absolute;
     top: 50%;
