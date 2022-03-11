@@ -1,0 +1,168 @@
+.themes {
+    display: flex;
+    width: 100%;
+    min-height: 300px;
+    border-radius: 0.5rem;
+    border: 1px solid #dadada;
+    flex-direction: column;
+    background-color: white;
+}
+
+.header {
+    display: flex;
+    width: 100%;
+    padding: 0.5rem;
+    border-bottom: 1px solid #dadada;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header h4 {
+    margin: unset;
+}
+
+.header button {
+    display: flex;
+    align-items: center;
+}
+
+.header button svg {
+    margin-left: 0.4rem;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+}
+
+.newThemeModel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 600px;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    border: 1px solid #d3d3d3;
+    background-color: white;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.error {
+    border: 1px solid red !important;
+    transition: all 0.3s ease;
+}
+
+.newThemeModel a {
+    font-weight: bold;
+    color: #009ef7;
+}
+
+.close svg {
+    width: 24px;
+    height: 24px;
+    color: #919191;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close svg:hover {
+    color: black;
+}
+
+.repos {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    min-height: 200px;
+    max-height: 80%;
+    margin: 0 auto;
+}
+
+.repo {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    height: 4rem;
+    margin: 0.2rem;
+    padding: 0.25rem;
+    border-radius: 0.15rem;
+    border: 1px solid #dadada;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.repo:hover {
+    border: 1px solid black;
+    color: white;
+    background-color: black;
+}
+
+.selected {
+    border: 1px solid black;
+    color: white;
+    background-color: black;
+}
+
+.repo svg {
+    color: #dadada;
+}
+
+.disabled {
+    color: #dadada;
+    cursor: unset;
+}
+
+.disabled:hover {
+    color: #dadada;
+    background-color: white;
+    border: 1px solid #dadada;
+}
+
+.inputs div {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+
+.inputs label {
+    cursor: pointer;
+}
+
+.inputs input {
+    padding: 0.25rem;
+    width: 100%;
+    border-radius: 0.15rem;
+    border: 1px solid #dadada;
+}
+
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 4rem;
+    height: 4rem;
+    margin-left: -2rem;
+    margin-top: -2rem;
+    color: #c5c5c5;
+    animation-name: spin;
+    animation-duration: 1600ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}

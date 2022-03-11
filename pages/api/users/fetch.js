@@ -1,44 +1,45 @@
 import admin from 'firebase-admin'
-import {runAdminQuery} from "../../../lib/firebase-admin";
+import {createUserWithUID, getUserByUID, runAdminQuery} from "../../../lib/firebase-admin";
 import {CreateStripeAccount, CreateStripeConnectLink, GetStripeAccount} from "../../../lib/stripe-admin";
+import axios from "axios";
 
 export default async function handler(req, res) {
 
     if (!req.query?.uid) return res.status(400).json({});
 
     try {
-        let user = await runAdminQuery(await admin.firestore().collection("users").where("uid", "==", req.query.uid).get());
+        let user = await getUserByUID(req.query.uid);
+        if (!user) user = await createUserWithUID(req.query.uid);
 
-        if (!user.length) {
-            await admin.firestore().collection("users").add({ uid: req.query.uid });
-            user = await runAdminQuery(await admin.firestore().collection("users").where("uid", "==", req.query.uid).get());
-        }
-
-        user = user.length ? user[0] : undefined;
         let stripeAccount = undefined;
 
-        if (!user) {
-            return res.status(400).json({});
+        let objToReturn = { user }
+
+        if (!user) return res.status(400).json({});
+
+        // if there is a user check if they have a stripe account, if not include connect URL in the payload
+        if (!user.stripe_account) {
+            stripeAccount = await CreateStripeAccount((await admin.auth().getUser(user.uid)).email);
+            await admin.firestore().collection("users").doc(user.id).update({ stripe_account: stripeAccount.id });
+            user.stripe_account = stripeAccount.id;
         } else {
-            // if there is a user check if they have a stripe account, if not include connect URL in the payload
-            if (!user.stripe_account) {
-                stripeAccount = await CreateStripeAccount((await admin.auth().getUser(user.uid)).email);
-                await admin.firestore().collection("users").doc(user.id).update({ stripe_account: stripeAccount.id });
-                user.stripe_account = stripeAccount.id;
-            } else {
-                stripeAccount = await GetStripeAccount(user.stripe_account);
-            }
+            stripeAccount = await GetStripeAccount(user.stripe_account);
         }
 
         if (stripeAccount.requirements.disabled_reason) {
             const stripe_url = await CreateStripeConnectLink(user.stripe_account);
-            return res.json({ user, stripe_url });
+            let requirements = [];
+            if (stripeAccount.requirements && stripeAccount.requirements.disabled_reason.includes(".")) {
+                requirements = stripeAccount.requirements[stripeAccount.requirements.disabled_reason.split(".")[1]];
+            }
+
+            objToReturn = {...objToReturn, stripe_url, requirements }
         }
 
-        return res.json({ user });
+        return res.json(objToReturn);
     } catch (err) {
         console.error(err);
-        res.status(500).json({});
+        return res.status(500).json({});
     }
 
 }

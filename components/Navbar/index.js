@@ -15,6 +15,12 @@ export default function Navbar(props) {
         return <div> </div>
     }
 
+    let email = currentUser.email.split("@")[0];
+
+    if (email.length > 15) {
+        email = email.substring(0, 15);
+    }
+
     return (
         <div className={styles.navbar}>
 
@@ -24,7 +30,7 @@ export default function Navbar(props) {
             </div>
 
             <div className={styles.bottomContent}>
-                {currentUser.email}
+                {email}
                 <FontAwesomeIcon icon={faArrowRightFromBracket} onClick={logout} />
             </div>
 
