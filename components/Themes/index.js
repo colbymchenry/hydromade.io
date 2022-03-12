@@ -16,7 +16,6 @@ export default function Themes(props) {
     const fetchThemes = async () => {
         try {
             const res = await axios.get(`/api/themes/fetch?uid=${currentUser.uid}`);
-            console.log(res.data);
             setThemes(res.data);
         } catch (err) {
             console.error(err);
