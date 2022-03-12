@@ -19,14 +19,18 @@ a {
   border: none;
   padding: 0.25em 0.75em;
   border-radius: 0.15em;
-  background-color: black;
+  background-color: black !important;
   color: white;
   transition: background-color 0.3s ease;
 }
 
+.btn-black:disabled {
+  background-color: rgb(75, 75, 75) !important;
+}
+
 .btn-black:hover {
   color: white;
-  background-color: rgb(75, 75, 75);
+  background-color: rgb(75, 75, 75) !important;
 }
 
 .overlay {

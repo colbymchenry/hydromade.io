@@ -36,6 +36,9 @@ export default async function handler(req, res) {
             objToReturn = {...objToReturn, stripe_url, requirements }
         }
 
+        const store = await runAdminQuery(await admin.firestore().collection("stores").where("owner", "==", req.query.uid).get());
+        if (store.length) objToReturn = {...objToReturn, store: store[0] }
+
         return res.json(objToReturn);
     } catch (err) {
         console.error(err);

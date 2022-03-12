@@ -6,6 +6,7 @@ import StripeConnect from "../../components/StripeConnect";
 import GithubConnect from "../../components/GithubConnect";
 import {useRouter} from "next/router";
 import Themes from "../../components/Themes";
+import StoreConnect from "../../components/StoreConnect";
 
 export default function App(props) {
 
@@ -46,7 +47,7 @@ export default function App(props) {
     if (accountInfo.stripe_url) {
         return (
             <AuthLayout>
-                <StripeConnect url={accountInfo.stripe_url} requirements={accountInfo.requirements} />
+                <StripeConnect url={accountInfo.stripe_url} requirements={accountInfo.requirements} fetchAccountInfo={fetchAccountInfo} />
             </AuthLayout>
         )
     }
@@ -54,7 +55,15 @@ export default function App(props) {
     if (!accountInfo.user.github_access_token) {
         return (
             <AuthLayout>
-                <GithubConnect />
+                <GithubConnect fetchAccountInfo={fetchAccountInfo} />
+            </AuthLayout>
+        )
+    }
+
+    if (!accountInfo.store) {
+        return (
+            <AuthLayout>
+                <StoreConnect fetchAccountInfo={fetchAccountInfo} />
             </AuthLayout>
         )
     }

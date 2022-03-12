@@ -36,6 +36,7 @@ export default function Themes(props) {
                         <FontAwesomeIcon icon={faEdit} />
                     </div>
                     <div>
+                        <button type={"button"} className={`btn-black`} style={{ marginRight: '24px' }}>deploy</button>
                         <button type={"button"} className={styles.delete}><FontAwesomeIcon icon={faTrashAlt} /></button>
                     </div>
                 </div>

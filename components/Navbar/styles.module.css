@@ -8,6 +8,7 @@
     flex-direction: column;
     justify-content: space-between;
     color: #9899ac;
+    position: fixed;
 }
 
 .bottomContent {
