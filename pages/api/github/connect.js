@@ -30,6 +30,8 @@ export default async function handler(req, res) {
 
         const snaps = await admin.firestore().collection("users").where("uid", "==", req.query.uid).get();
 
+        if (tokenResponse.data.split("&")[0].replace("access_token=", "") === "error=bad_verification_code") return res.status(400).json({ message: "Failed." })
+        
         await admin.firestore().collection("users").doc(snaps.docs[0].id).update({
             github_access_token: tokenResponse.data.split("&")[0].replace("access_token=", "")
         })
