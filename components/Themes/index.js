@@ -6,6 +6,7 @@ import {NewThemeModal} from "./NewThemeModal";
 import {useAuth} from "../../contexts/AuthContext";
 import Skeleton from 'react-loading-skeleton'
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function Themes(props) {
 
@@ -22,6 +23,57 @@ export default function Themes(props) {
         }
     }
 
+    const deployTheme = async (theme) => {
+
+        await Swal.fire({
+            html: `Use the '<b>${theme.name}</b>' theme?`,
+            icon: "warning",
+            confirmButtonText: "Deploy",
+            denyButtonText: "Nevermind",
+            confirmButtonColor: "#009ef7",
+            denyButtonColor: "gray",
+            showCloseButton: true,
+            showDenyButton: true,
+            allowOutsideClick: false
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const res = await axios.post(`/api/stores/deploy?uid=${currentUser.uid}`, {
+                        theme: theme.id
+                    });
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+        });
+    }
+
+    const deleteTheme = async (theme) => {
+        await Swal.fire({
+            title: "Are you sure?",
+            text: "This can't be undone.",
+            icon: "warning",
+            confirmButtonText: "Delete",
+            denyButtonText: "Nevermind",
+            confirmButtonColor: "red",
+            denyButtonColor: "gray",
+            showCloseButton: true,
+            showDenyButton: true,
+            allowOutsideClick: false
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const res = await axios.post(`/api/themes/delete?uid=${currentUser.uid}`, {
+                        theme
+                    });
+                    await fetchThemes();
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+        });
+    }
+
     useEffect(() => {
         if (!themes) fetchThemes();
     }, [])
@@ -29,14 +81,14 @@ export default function Themes(props) {
     const renderThemes = () => {
         return themes.map((theme) => {
             return (
-                <div className={`d-flex justify-content-between w-100 align-items-center ${styles.theme}`}>
+                <div key={theme.id} className={`d-flex justify-content-between w-100 align-items-center ${styles.theme}`}>
                     <div className={styles.themeInfo}>
                         {theme.name}
                         <FontAwesomeIcon icon={faEdit} />
                     </div>
                     <div>
-                        <button type={"button"} className={`btn-black`} style={{ marginRight: '24px' }}>deploy</button>
-                        <button type={"button"} className={styles.delete}><FontAwesomeIcon icon={faTrashAlt} /></button>
+                        <button type={"button"} onClick={() => deployTheme(theme)} className={`btn-black`} style={{ marginRight: '24px' }}>deploy</button>
+                        <button type={"button"} onClick={() => deleteTheme(theme.id)} className={styles.delete}><FontAwesomeIcon icon={faTrashAlt} /></button>
                     </div>
                 </div>
             )
