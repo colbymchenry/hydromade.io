@@ -175,6 +175,21 @@
     border: 1px solid #dadada;
 }
 
+.deploy {
+    padding: unset !important;
+    min-width: 100px !important;
+    margin-right: 10px !important;
+}
+
+.deploy > span {
+    padding: 0.2rem 0.5rem !important;
+}
+
+.deploy svg {
+    width: 16px !important;
+    height: 16px !important;
+}
+
 .spinner {
     position: absolute;
     top: 50%;

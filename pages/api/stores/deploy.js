@@ -39,9 +39,9 @@ export default async function handler(req, res) {
                 }
             ]);
 
-            vercel_project_id = vercelProject.data.id;
+            vercel_project_id = vercelProject.id;
 
-            let deployment = await DeployVercelProject(vercelProject.data.id, theme.repo.repoId);
+            let deployment = await DeployVercelProject(vercelProject.id, theme.repo.repoId);
         } else {
             // update vercel project
         }
@@ -51,7 +51,9 @@ export default async function handler(req, res) {
             vercel_project_id
         });
 
-        return res.json({})
+        const url = "https://" + store.storeDomain.replace(/\./g, "-") + ".hydromade.io";
+
+        return res.json({ url })
     } catch (err) {
         console.error(err);
         console.log(err?.response?.data)

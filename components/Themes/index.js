@@ -7,12 +7,14 @@ import {useAuth} from "../../contexts/AuthContext";
 import Skeleton from 'react-loading-skeleton'
 import axios from "axios";
 import Swal from "sweetalert2";
+import ButtonSubmit from "../ButtonSubmit/ButtonSubmit";
 
 export default function Themes(props) {
 
     const { currentUser } = useAuth();
     const [themes, setThemes] = useState(undefined);
     const [creatingTheme, setCreatingTheme] = useState(false);
+    const [deployingTheme, setDeployingTheme] = useState(undefined);
 
     const fetchThemes = async () => {
         try {
@@ -24,7 +26,6 @@ export default function Themes(props) {
     }
 
     const deployTheme = async (theme) => {
-
         await Swal.fire({
             html: `Use the '<b>${theme.name}</b>' theme?`,
             icon: "warning",
@@ -37,10 +38,31 @@ export default function Themes(props) {
             allowOutsideClick: false
         }).then(async (result) => {
             if (result.isConfirmed) {
+                setDeployingTheme(theme);
                 try {
                     const res = await axios.post(`/api/stores/deploy?uid=${currentUser.uid}`, {
                         theme: theme.id
                     });
+
+                    setTimeout(() => {
+                        setDeployingTheme(undefined);
+                        Swal.fire({
+                            title: "Congratulations!",
+                            text: `Store deployed.`,
+                            icon: "success",
+                            confirmButtonText: "Visit store",
+                            denyButtonText: "Exit",
+                            confirmButtonColor: "#009ef7",
+                            denyButtonColor: "gray",
+                            showCloseButton: true,
+                            showDenyButton: true,
+                            allowOutsideClick: false
+                        }).then((response) => {
+                            if (response.isConfirmed) {
+                                window.open(res.data.url, '_blank');
+                            }
+                        })
+                    }, 45 * 1000)
                 } catch (err) {
                     console.error(err);
                 }
@@ -86,8 +108,8 @@ export default function Themes(props) {
                         {theme.name}
                         <FontAwesomeIcon icon={faEdit} />
                     </div>
-                    <div>
-                        <button type={"button"} onClick={() => deployTheme(theme)} className={`btn-black`} style={{ marginRight: '24px' }}>deploy</button>
+                    <div className={'d-flex'}>
+                        <ButtonSubmit type={"button"} label={"deploy"} processingLabel={"deploying"} processing={deployingTheme && deployingTheme.id === theme.id} onClick={() => deployTheme(theme)} className={`btn-black ${styles.deploy}`} style={{ marginRight: '24px' }} />
                         <button type={"button"} onClick={() => deleteTheme(theme.id)} className={styles.delete}><FontAwesomeIcon icon={faTrashAlt} /></button>
                     </div>
                 </div>
