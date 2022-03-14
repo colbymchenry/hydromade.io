@@ -8,7 +8,7 @@ export default function StripeConnect(props) {
                 <h3>Your Stripe account requires documents for verification.</h3> :
                 <h3>To upload a theme you must create a Stripe account.</h3>
             }
-            <a href={props.url}>{(props.requirements && props.requirements.length) ? "Finish Setup" : "Create Account"}</a>
+            <a href={props.url}>Application</a>
         </div>
     )
 

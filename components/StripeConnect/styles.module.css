@@ -4,15 +4,16 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    cursor: pointer;
 }
 
 .main > a {
     margin: 2rem;
     padding: 1rem 2rem;
-    background-color: #95BF47;
+    background-color: black;
     border-radius: 0.4rem;
-    border: 1px solid #5E8E3E;
-    color: white;
+    border: 1px solid #1c1c1c;
+    color: white !important;
     font-size: 1.5rem;
     transition: all 0.3s ease;
 }

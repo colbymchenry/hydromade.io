@@ -2,15 +2,12 @@ import {AuthLayout} from "../../components/layouts/AuthLayout";
 import {useEffect, useState} from "react";
 import {useAuth} from "../../contexts/AuthContext";
 import axios from "axios";
-import StripeConnect from "../../components/StripeConnect";
-import GithubConnect from "../../components/GithubConnect";
-import {useRouter} from "next/router";
-import Themes from "../../components/Themes";
 import StoreConnect from "../../components/StoreConnect";
+import MyThemes from "../../components/MyThemes";
+import Fetching from "../../components/Fetching";
 
 export default function App(props) {
 
-    const router = useRouter();
     const { currentUser } = useAuth();
     const [accountInfo, setAccountInfo] = useState();
 
@@ -27,38 +24,11 @@ export default function App(props) {
         if (!accountInfo) fetchAccountInfo();
     }, []);
 
-    useEffect(async () => {
-        if (accountInfo) {
-            let searchParams = new URLSearchParams(window.location.search);
-            if (searchParams.has("code")) {
-                try {
-                    const res = await axios.get(`/api/github/connect?uid=${currentUser.uid}&code=${searchParams.get("code")}`);
-                    await fetchAccountInfo();
-                    router.push('/app')
-                } catch (error) {
-                    console.error(error)
-                }
-            }
-        }
-    }, [accountInfo])
-
-    if (!accountInfo) return <></>
-
-    if (accountInfo.stripe_url) {
-        return (
-            <AuthLayout>
-                <StripeConnect url={accountInfo.stripe_url} requirements={accountInfo.requirements} fetchAccountInfo={fetchAccountInfo} />
-            </AuthLayout>
-        )
-    }
-
-    if (!accountInfo.user.github_access_token) {
-        return (
-            <AuthLayout>
-                <GithubConnect fetchAccountInfo={fetchAccountInfo} />
-            </AuthLayout>
-        )
-    }
+    if (!accountInfo) return (
+        <AuthLayout>
+            <Fetching />
+        </AuthLayout>
+    )
 
     if (!accountInfo.store) {
         return (
@@ -70,7 +40,7 @@ export default function App(props) {
 
     return (
         <AuthLayout>
-            <Themes />
+            <MyThemes />
         </AuthLayout>
     )
 

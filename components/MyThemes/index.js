@@ -9,7 +9,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import ButtonSubmit from "../ButtonSubmit/ButtonSubmit";
 
-export default function Themes(props) {
+export default function MyThemes(props) {
 
     const { currentUser } = useAuth();
     const [themes, setThemes] = useState(undefined);
