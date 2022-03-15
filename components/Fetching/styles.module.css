@@ -9,7 +9,7 @@
 
 .main svg {
     animation-name: spin;
-    animation-duration: 1600ms;
+    animation-duration: 750ms;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
     width: clamp(32px, 20vw, 120px);

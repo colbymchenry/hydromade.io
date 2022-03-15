@@ -24,7 +24,7 @@ export default async function handler(req, res) {
         let vercel_project_id = store.vercel_project_id;
 
         if (!vercel_project_id) {
-            let vercelProject = await CreateVercelProject(store.storeDomain.replace(/\./g, "-"), theme.repo.org, theme.repo.repo, [
+            let vercelProject = await CreateVercelProject(store.storeDomain.split(".")[0], theme.repo.org, theme.repo.repo, [
                 {
                     type: "plain",
                     key: "VITE_STORE_DOMAIN",
@@ -51,7 +51,7 @@ export default async function handler(req, res) {
             vercel_project_id
         });
 
-        const url = "https://" + store.storeDomain.replace(/\./g, "-") + ".hydromade.io";
+        const url = "https://" + store.storeDomain.split(".")[0] + ".hydromade.app";
 
         return res.json({ url })
     } catch (err) {

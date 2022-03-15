@@ -11,6 +11,7 @@ import ButtonSubmit from "../ButtonSubmit/ButtonSubmit";
 import {AuthLayout} from "../layouts/AuthLayout";
 import StripeConnect from "../StripeConnect";
 import GithubConnect from "../GithubConnect";
+import {DeployingThemeModal} from "../DeployingThemeModal";
 
 export default function MyThemes({ accountInfo, fetchAccountInfo }) {
 
@@ -46,26 +47,6 @@ export default function MyThemes({ accountInfo, fetchAccountInfo }) {
                     const res = await axios.post(`/api/stores/deploy?uid=${currentUser.uid}`, {
                         theme: theme.id
                     });
-
-                    setTimeout(() => {
-                        setDeployingTheme(undefined);
-                        Swal.fire({
-                            title: "Congratulations!",
-                            text: `Store deployed.`,
-                            icon: "success",
-                            confirmButtonText: "Visit store",
-                            denyButtonText: "Exit",
-                            confirmButtonColor: "#009ef7",
-                            denyButtonColor: "gray",
-                            showCloseButton: true,
-                            showDenyButton: true,
-                            allowOutsideClick: false
-                        }).then((response) => {
-                            if (response.isConfirmed) {
-                                window.open(res.data.url, '_blank');
-                            }
-                        })
-                    }, 45 * 1000)
                 } catch (err) {
                     console.error(err);
                 }
@@ -144,6 +125,7 @@ export default function MyThemes({ accountInfo, fetchAccountInfo }) {
                 </div>
             </div>
             {creatingTheme && <NewThemeModal setCreatingTheme={setCreatingTheme} fetchThemes={fetchThemes} />}
+            {deployingTheme && <DeployingThemeModal setDeploying={() => setDeployingTheme(undefined)} />}
         </>
     )
 
