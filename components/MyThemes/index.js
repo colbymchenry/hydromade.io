@@ -8,8 +8,11 @@ import Skeleton from 'react-loading-skeleton'
 import axios from "axios";
 import Swal from "sweetalert2";
 import ButtonSubmit from "../ButtonSubmit/ButtonSubmit";
+import {AuthLayout} from "../layouts/AuthLayout";
+import StripeConnect from "../StripeConnect";
+import GithubConnect from "../GithubConnect";
 
-export default function MyThemes(props) {
+export default function MyThemes({ accountInfo, fetchAccountInfo }) {
 
     const { currentUser } = useAuth();
     const [themes, setThemes] = useState(undefined);
@@ -23,51 +26,6 @@ export default function MyThemes(props) {
         } catch (err) {
             console.error(err);
         }
-    }
-
-    const deployTheme = async (theme) => {
-        await Swal.fire({
-            html: `Use the '<b>${theme.name}</b>' theme?`,
-            icon: "warning",
-            confirmButtonText: "Deploy",
-            denyButtonText: "Nevermind",
-            confirmButtonColor: "#009ef7",
-            denyButtonColor: "gray",
-            showCloseButton: true,
-            showDenyButton: true,
-            allowOutsideClick: false
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                setDeployingTheme(theme);
-                try {
-                    const res = await axios.post(`/api/stores/deploy?uid=${currentUser.uid}`, {
-                        theme: theme.id
-                    });
-
-                    setTimeout(() => {
-                        setDeployingTheme(undefined);
-                        Swal.fire({
-                            title: "Congratulations!",
-                            text: `Store deployed.`,
-                            icon: "success",
-                            confirmButtonText: "Visit store",
-                            denyButtonText: "Exit",
-                            confirmButtonColor: "#009ef7",
-                            denyButtonColor: "gray",
-                            showCloseButton: true,
-                            showDenyButton: true,
-                            allowOutsideClick: false
-                        }).then((response) => {
-                            if (response.isConfirmed) {
-                                window.open(res.data.url, '_blank');
-                            }
-                        })
-                    }, 45 * 1000)
-                } catch (err) {
-                    console.error(err);
-                }
-            }
-        });
     }
 
     const deleteTheme = async (theme) => {
@@ -117,18 +75,30 @@ export default function MyThemes(props) {
         })
     }
 
+    if (creatingTheme && accountInfo.stripe_url) {
+        return (
+            <StripeConnect url={accountInfo.stripe_url} requirements={accountInfo.requirements} fetchAccountInfo={fetchAccountInfo} />
+        )
+    }
+
+    if (creatingTheme && !accountInfo.user.github_access_token) {
+        return (
+            <GithubConnect fetchAccountInfo={fetchAccountInfo} />
+        )
+    }
+
     return (
         <>
-        <div className={styles.themes}>
-            <div className={styles.header}>
-                <h4>Themes</h4>
-                <button type={"button"} className={"btn-black"} onClick={() => setCreatingTheme(true)}>Create Theme <FontAwesomeIcon icon={faPlus} /></button>
+            <div className={styles.themes}>
+                <div className={styles.header}>
+                    <h4>My Themes</h4>
+                    <button type={"button"} className={"btn-black"} onClick={() => setCreatingTheme(true)}>Create Theme <FontAwesomeIcon icon={faPlus} /></button>
+                </div>
+                <div className={styles.body}>
+                    {!themes ? <Skeleton containerClassName={'w-100 p-4'} count={7} height={40} /> : renderThemes()}
+                </div>
             </div>
-            <div className={styles.body}>
-                {!themes ? <Skeleton containerClassName={'w-100 p-4'} count={7} height={40} /> : renderThemes()}
-            </div>
-        </div>
-        {creatingTheme && <NewThemeModal setCreatingTheme={setCreatingTheme} fetchThemes={fetchThemes} />}
+            {creatingTheme && <NewThemeModal setCreatingTheme={setCreatingTheme} fetchThemes={fetchThemes} />}
         </>
     )
 

@@ -22,24 +22,40 @@
     font-weight: lighter;
 }
 
-.buttonSubmit > div > svg {
+.spin {
     animation-name: spin;
-    animation-duration: 1600ms;
+    animation-duration: 750ms;
     animation-iteration-count: infinite;
     animation-timing-function: linear; 
     width: 32px;
     height: 32px;
 }
 
-.buttonSubmit > div {
-    border-left: 0.5px solid #a6a6a6;
-    padding-left: 0.8em;
-    padding-right: 0.5em;
-    position: unset !important;
+.buttonSubmit svg {
+    fill: white;
+    width: 14px;
+    height: 14px;
 }
 
-.buttonSubmit:disabled > div {
-    border-left: 0.5px solid #d9dad7;
+.buttonSubmit .big {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+.buttonSubmit > div {
+    /*border-left: 0.5px solid #a6a6a6;*/
+    position: unset !important;
+    width: 18px;
+    overflow: visible;
+}
+
+.buttonSubmit:disabled {
+    color: #a6a6a6;
+}
+
+.buttonSubmit:disabled > div > svg {
+    /*border-left: 0.5px solid #d9dad7;*/
+    fill: #a6a6a6;
 }
 
 @keyframes spin {

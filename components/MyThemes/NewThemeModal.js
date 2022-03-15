@@ -136,7 +136,7 @@ export function NewThemeModal(props) {
                 {!repos ? <FontAwesomeIcon icon={faSpinner} className={styles.spinner}/> : renderRepos()}
             </div>
             <div className={`d-flex w-100 justify-content-center align-items-center mt-3`}>
-                <ButtonSubmit label={"Create"} type={"button"} disabled={!name || !selectedRepo}
+                <ButtonSubmit label={"Create"} type={"button"} className={"btn-black"} disabled={!name || !selectedRepo}
                               processing={processing} onClick={submitTheme}/>
             </div>
         </animated.div>

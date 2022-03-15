@@ -8,6 +8,7 @@ import {AuthLayout} from "../../../components/layouts/AuthLayout";
 import MarketplaceThemes from "../../../components/MarketplaceThemes";
 import Fetching from "../../../components/Fetching";
 import {BarLoader} from "react-spinners";
+import MyThemes from "../../../components/MyThemes";
 
 export default function Marketplace(props) {
 
@@ -51,7 +52,9 @@ export default function Marketplace(props) {
 
     return (
         <AuthLayout>
-            <MarketplaceThemes accountInfo={accountInfo} fetchAccountInfo={fetchAccountInfo} />
+            <MarketplaceThemes />
+            <br />
+            <MyThemes accountInfo={accountInfo} fetchAccountInfo={fetchAccountInfo} />
         </AuthLayout>
     )
 
