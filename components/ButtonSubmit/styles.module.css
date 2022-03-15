@@ -43,7 +43,6 @@
 }
 
 .buttonSubmit > div {
-    /*border-left: 0.5px solid #a6a6a6;*/
     position: unset !important;
     width: 18px;
     overflow: visible;
@@ -54,7 +53,6 @@
 }
 
 .buttonSubmit:disabled > div > svg {
-    /*border-left: 0.5px solid #d9dad7;*/
     fill: #a6a6a6;
 }
 

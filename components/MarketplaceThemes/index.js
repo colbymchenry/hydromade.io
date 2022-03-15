@@ -15,7 +15,7 @@ export default function MarketplaceThemes() {
 
     const fetchThemes = async () => {
         try {
-            const res = await axios.get(`/api/themes/fetch?uid=${currentUser.uid}`);
+            const res = await axios.get(`/api/themes/fetch`);
             setThemes(res.data);
         } catch (err) {
             console.error(err);
@@ -45,7 +45,7 @@ export default function MarketplaceThemes() {
         <>
         <div className={styles.themes}>
             <div className={styles.header}>
-                <h4>Public Themes</h4>
+                <h4>Marketplace</h4>
             </div>
             <div className={styles.body}>
                 {!themes ? <Skeleton containerClassName={'w-100 p-4'} count={7} height={40} /> : renderThemes()}

@@ -28,6 +28,51 @@ export default function MyThemes({ accountInfo, fetchAccountInfo }) {
         }
     }
 
+    const deployTheme = async (theme) => {
+        await Swal.fire({
+            html: `Use the '<b>${theme.name}</b>' theme?`,
+            icon: "warning",
+            confirmButtonText: "Deploy",
+            denyButtonText: "Nevermind",
+            confirmButtonColor: "#009ef7",
+            denyButtonColor: "gray",
+            showCloseButton: true,
+            showDenyButton: true,
+            allowOutsideClick: false
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                setDeployingTheme(theme);
+                try {
+                    const res = await axios.post(`/api/stores/deploy?uid=${currentUser.uid}`, {
+                        theme: theme.id
+                    });
+
+                    setTimeout(() => {
+                        setDeployingTheme(undefined);
+                        Swal.fire({
+                            title: "Congratulations!",
+                            text: `Store deployed.`,
+                            icon: "success",
+                            confirmButtonText: "Visit store",
+                            denyButtonText: "Exit",
+                            confirmButtonColor: "#009ef7",
+                            denyButtonColor: "gray",
+                            showCloseButton: true,
+                            showDenyButton: true,
+                            allowOutsideClick: false
+                        }).then((response) => {
+                            if (response.isConfirmed) {
+                                window.open(res.data.url, '_blank');
+                            }
+                        })
+                    }, 45 * 1000)
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+        });
+    }
+
     const deleteTheme = async (theme) => {
         await Swal.fire({
             title: "Are you sure?",
