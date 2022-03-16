@@ -14,7 +14,11 @@ import {DeployingThemeModal} from "../DeployingThemeModal";
 import Fetching from "../Fetching";
 import {useRouter} from "next/router";
 
-export default function MyThemes(props) {
+// TODO: Make document in drafts with theme_id, theme_settings, they can only preview drafts of the theme they have deployed
+// TODO: From there they can modify the theme_settings passed into the query URL of the theme. Will need a "ThemeContext"
+// TODO: and will have to start grabbing theme settings in getServerSideProps() to render proper settings before page is rendered
+// TODO: This will allow them to easily deploy drafts, also without the need for a second "Draft" vercel server
+export default function Drafts(props) {
 
     const router = useRouter();
     const { currentUser, loading, accountInfo, fetchAccountInfo } = useAuth();
@@ -126,7 +130,7 @@ export default function MyThemes(props) {
         <>
             <div className={styles.themes}>
                 <div className={styles.header}>
-                    <h4>My Themes</h4>
+                    <h4>Drafts</h4>
                     <button type={"button"} className={"btn-black"} onClick={() => setCreatingTheme(true)}>Create Theme <FontAwesomeIcon icon={faPlus} /></button>
                 </div>
                 <div className={styles.body}>

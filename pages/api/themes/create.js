@@ -17,7 +17,8 @@ export default async function handler(req, res) {
             creator: user.uid,
             name: req.body.name,
             price: req.body.price || 0,
-            repo: req.body.repo
+            repo: req.body.repo,
+            private: true
         });
 
         return res.json({})

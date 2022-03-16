@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
             return res.json(await runAdminQuery(await admin.firestore().collection("themes").where("creator", "==", user.uid).get()));
         } else {
-            return res.json(await runAdminQuery(await admin.firestore().collection("themes").where("name", "!=", null).get()))
+            return res.json(await runAdminQuery(await admin.firestore().collection("themes").where("private", "==", false).where("name", "!=", null).get()))
         }
     } catch (err) {
         console.error(err);

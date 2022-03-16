@@ -1,0 +1,232 @@
+.themes {
+    display: flex;
+    width: 100%;
+    min-height: 300px;
+    border-radius: 0.5rem;
+    border: 1px solid #dadada;
+    flex-direction: column;
+    background-color: white;
+}
+
+.header {
+    display: flex;
+    width: 100%;
+    padding: 0.5rem;
+    border-bottom: 1px solid #dadada;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header h4 {
+    margin: unset;
+}
+
+.header button {
+    display: flex;
+    align-items: center;
+}
+
+.header button svg {
+    margin-left: 0.4rem;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+}
+
+.theme {
+    border-bottom: 1px solid #dadada;
+    padding: 1rem;
+}
+
+.delete {
+    background-color: red;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.15em;
+    border: 0.5px solid darkred;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.delete:hover {
+    background-color: #dc0101;
+}
+
+.themeInfo {
+    position: relative;
+    padding-right: 1rem;
+}
+
+
+.themeInfo svg {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.newThemeModel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 600px;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    border: 1px solid #d3d3d3;
+    background-color: white;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.error {
+    border: 1px solid red !important;
+    transition: all 0.3s ease;
+}
+
+.newThemeModel a {
+    font-weight: bold;
+    color: #009ef7;
+}
+
+.close svg {
+    width: 24px;
+    height: 24px;
+    color: #919191;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close svg:hover {
+    color: black;
+}
+
+.repos {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    min-height: 200px;
+    max-height: 80%;
+    margin: 0 auto;
+}
+
+.repo {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    height: 4rem;
+    margin: 0.2rem;
+    padding: 0.25rem;
+    border-radius: 0.15rem;
+    border: 1px solid #dadada;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.repo:hover {
+    border: 1px solid black;
+    color: white;
+    background-color: black;
+}
+
+.selected {
+    border: 1px solid black;
+    color: white;
+    background-color: black;
+}
+
+.repo svg {
+    color: #dadada;
+}
+
+.disabled {
+    color: #dadada;
+    cursor: unset;
+}
+
+.disabled:hover {
+    color: #dadada;
+    background-color: white;
+    border: 1px solid #dadada;
+}
+
+.inputs div {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+
+.inputs label {
+    cursor: pointer;
+}
+
+.inputs input {
+    padding: 0.25rem;
+    width: 100%;
+    border-radius: 0.15rem;
+    border: 1px solid #dadada;
+}
+
+.deploy {
+    padding: unset !important;
+    min-width: 100px !important;
+    margin-right: 10px !important;
+}
+
+.deploy > span {
+    padding: 0.2rem 0.5rem !important;
+}
+
+.deploy svg {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 38px;
+    height: 38px;
+    margin-left: -2rem;
+    margin-top: -2rem;
+    color: #c5c5c5;
+}
+
+.spin {
+    animation-name: spin;
+    animation-duration: 750ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    width: 62px;
+    height: 62px;
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+
+.blueBtn {
+    background-color: #009ef7;
+    color: white;
+    border: 2px solid #006ea6;
+    transition: all 0.3s ease;
+}
+
+.blueBtn:hover {
+    background-color: #0075b2;
+}

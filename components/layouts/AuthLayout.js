@@ -12,10 +12,6 @@ export function AuthLayout(props) {
     const { currentUser, loading } = useAuth();
     const [buttonLabel, setButtonLabel] = useState("Resend verification email")
 
-    useEffect(() => {
-        if (!currentUser) router.push("/")
-    }, [router.pathname])
-
     if (currentUser && !currentUser.emailVerified) {
         return (
             <div className="d-flex justify-content-center align-items-center" style={{ width: '100vw', height: '100vh'}}>
@@ -40,8 +36,8 @@ export function AuthLayout(props) {
 
     return (
         <div className="d-flex">
-            <Navbar />
-            <div className="p-5" style={{ position: 'relative', backgroundColor: '#F5F8FA', overflowY: 'auto', width: "calc(100% - 265px)", left: "265px", minHeight: '100vh' }}>
+            {!props.fullscreen && <Navbar />}
+            <div className="p-5" style={{ position: 'relative', backgroundColor: '#F5F8FA', overflowY: 'auto', width: !props.fullscreen ? "calc(100% - 265px)" : "100%", left: !props.fullscreen ? "265px" : "0px", minHeight: '100vh' }}>
                 {loading ? <Fetching /> : props.children}
             </div>
         </div>
