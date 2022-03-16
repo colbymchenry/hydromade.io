@@ -8,14 +8,14 @@ import Skeleton from 'react-loading-skeleton'
 import axios from "axios";
 import Swal from "sweetalert2";
 import ButtonSubmit from "../ButtonSubmit/ButtonSubmit";
-import {AuthLayout} from "../layouts/AuthLayout";
 import StripeConnect from "../StripeConnect";
 import GithubConnect from "../GithubConnect";
 import {DeployingThemeModal} from "../DeployingThemeModal";
+import Fetching from "../Fetching";
 
-export default function MyThemes({ accountInfo, fetchAccountInfo }) {
+export default function MyThemes() {
 
-    const { currentUser } = useAuth();
+    const { currentUser, loading, accountInfo, fetchAccountInfo } = useAuth();
     const [themes, setThemes] = useState(undefined);
     const [creatingTheme, setCreatingTheme] = useState(false);
     const [deployingTheme, setDeployingTheme] = useState(undefined);
@@ -86,6 +86,7 @@ export default function MyThemes({ accountInfo, fetchAccountInfo }) {
 
     const renderThemes = () => {
         return themes.map((theme) => {
+            const isCurrentTheme = accountInfo.store && accountInfo.store.theme === theme.id;
             return (
                 <div key={theme.id} className={`d-flex justify-content-between w-100 align-items-center ${styles.theme}`}>
                     <div className={styles.themeInfo}>
@@ -93,12 +94,18 @@ export default function MyThemes({ accountInfo, fetchAccountInfo }) {
                         <FontAwesomeIcon icon={faEdit} />
                     </div>
                     <div className={'d-flex'}>
-                        <ButtonSubmit type={"button"} label={"deploy"} processingLabel={"deploying"} processing={deployingTheme && deployingTheme.id === theme.id} onClick={() => deployTheme(theme)} className={`btn-black ${styles.deploy}`} style={{ marginRight: '24px' }} />
+                        <ButtonSubmit type={"button"} hideArrow={isCurrentTheme} disabled={isCurrentTheme} label={isCurrentTheme ? "current theme" : "deploy"} processingLabel={"deploying"} processing={deployingTheme && deployingTheme.id === theme.id} onClick={() => deployTheme(theme)} className={`btn-black ${styles.deploy}`} style={{ marginRight: '24px' }} />
                         <button type={"button"} onClick={() => deleteTheme(theme.id)} className={styles.delete}><FontAwesomeIcon icon={faTrashAlt} /></button>
                     </div>
                 </div>
             )
         })
+    }
+
+    if (loading) {
+        return (
+            <Fetching />
+        )
     }
 
     if (creatingTheme && accountInfo.stripe_url) {

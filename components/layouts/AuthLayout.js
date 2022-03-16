@@ -4,11 +4,12 @@ import {useRouter} from "next/router";
 import ButtonSubmit from "../ButtonSubmit/ButtonSubmit";
 import {sendEmailVerification} from "firebase/auth";
 import Navbar from "../Navbar";
+import Fetching from "../Fetching";
 
 export function AuthLayout(props) {
 
     const router = useRouter();
-    const { currentUser } = useAuth();
+    const { currentUser, loading } = useAuth();
     const [buttonLabel, setButtonLabel] = useState("Resend verification email")
 
     useEffect(() => {
@@ -41,7 +42,7 @@ export function AuthLayout(props) {
         <div className="d-flex">
             <Navbar />
             <div className="p-5" style={{ position: 'relative', backgroundColor: '#F5F8FA', overflowY: 'auto', width: "calc(100% - 265px)", left: "265px", minHeight: '100vh' }}>
-                {props.children}
+                {loading ? <Fetching /> : props.children}
             </div>
         </div>
     )

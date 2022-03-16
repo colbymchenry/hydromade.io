@@ -11,7 +11,7 @@ export default function Navbar(props) {
     const { currentUser, logout } = useAuth();
 
     if (!currentUser) {
-        router.push("/");
+        // router.push("/");
         return <div> </div>
     }
 

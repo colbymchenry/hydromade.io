@@ -23,9 +23,12 @@ export default function ButtonSubmit(props) {
     return (
         <button type={props?.type ? props.type : "submit"} style={props.style} onClick={props.onClick} className={`d-flex justify-content-center align-items-center ${styles.buttonSubmit} ${props.processing ? styles.processing : ''}${props?.className ? ' ' + props.className : ''}`} disabled={props.processing || props.disabled}>
             <span>{props.label}</span>
-                <div className={`d-flex h-100 justify-content-center align-items-center ${props.processing ? styles.spin : ''}`}>
+            {!props.hideArrow &&
+                <div
+                    className={`d-flex h-100 justify-content-center align-items-center ${props.processing ? styles.spin : ''}`}>
                     {props.processing ? spinner : rightArrow}
                 </div>
+            }
         </button>
     )
 }

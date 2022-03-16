@@ -5,7 +5,7 @@ import axios from "axios";
 import {useAuth} from "../../contexts/AuthContext";
 import FontAwesomeIcon from "../FontAwesomeIcon";
 import {faLock, faSpinner, faTimes} from "@fortawesome/free-solid-svg-icons";
-import ButtonSubmit from "../ButtonSubmit/ButtonSubmit";
+import ButtonSubmit, {spinner} from "../ButtonSubmit/ButtonSubmit";
 import Confetti from "react-confetti";
 import Swal from "sweetalert2";
 
@@ -133,7 +133,7 @@ export function NewThemeModal(props) {
                 href={"https://github.com/colbymchenry/hydromade-template"} target={"_blank"}>Hydrogen
                 Template.</a></small>
             <div className={styles.repos}>
-                {!repos ? <FontAwesomeIcon icon={faSpinner} className={styles.spinner}/> : renderRepos()}
+                {!repos ? <span className={styles.spinner + " " + styles.spin}>{spinner}</span> : renderRepos()}
             </div>
             <div className={`d-flex w-100 justify-content-center align-items-center mt-3`}>
                 <ButtonSubmit label={"Create"} type={"button"} className={"btn-black"} disabled={!name || !selectedRepo}

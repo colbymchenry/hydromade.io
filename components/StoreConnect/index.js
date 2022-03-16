@@ -5,9 +5,9 @@ import {useSpring, animated} from "react-spring";
 import {useAuth} from "../../contexts/AuthContext";
 import axios from "axios";
 
-export default function StoreConnect(props) {
+export default function StoreConnect() {
 
-    const { currentUser } = useAuth();
+    const { currentUser, fetchAccountInfo } = useAuth();
     const [accessKey, setAccessKey] = useState("");
     const [storeAddress, setStoreAddress] = useState("")
     const [processing, setProcessing] = useState(false);
@@ -40,7 +40,7 @@ export default function StoreConnect(props) {
                 storeDomain: storeAddress, accessToken: accessKey
             });
 
-            props.fetchAccountInfo()
+            fetchAccountInfo()
         } catch (err) {
             console.error(err);
         }

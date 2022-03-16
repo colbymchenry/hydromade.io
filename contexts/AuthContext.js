@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { createUser, firebaseAuth, signinUser, signoutUser } from '../utils/firebase'
+import axios from "axios";
 
 const AuthContext = React.createContext();
 
@@ -10,10 +11,11 @@ export function useAuth() {
 export function AuthProvider({ children }) {
 
     const [currentUser, setCurrentUser] = useState(undefined);
+    const [accountInfo, setUserData] = useState(undefined);
     const [loading, setLoading] = useState(true);
 
     async function signup(email, password) {
-        return await createUser(email, password);;
+        return await createUser(email, password);
     }
 
     async function login(email, password) {
@@ -24,10 +26,20 @@ export function AuthProvider({ children }) {
         await signoutUser();
     }
 
+    async function fetchAccountInfo(user) {
+        try {
+            const res = await axios.get(`/api/users/fetch?uid=${user ? user.uid : currentUser.uid}`);
+            setUserData(res.data);
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
     useEffect(() => {
-        const unsubscriber = firebaseAuth.onAuthStateChanged(user => {
+        const unsubscriber = firebaseAuth.onAuthStateChanged(async (user) => {
             setCurrentUser(user);
-            setLoading(false)
+            await fetchAccountInfo(user);
+            setTimeout(() => setLoading(false), 4000);
         });
 
         return unsubscriber;
@@ -35,6 +47,9 @@ export function AuthProvider({ children }) {
 
     const value = {
         currentUser,
+        loading,
+        accountInfo,
+        fetchAccountInfo,
         signup,
         login,
         logout
@@ -42,7 +57,7 @@ export function AuthProvider({ children }) {
 
     return (
         <AuthContext.Provider value={value}>
-            {!loading && children}
+            {children}
         </AuthContext.Provider>
     )
 }
