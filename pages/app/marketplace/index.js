@@ -27,8 +27,6 @@ export default function Marketplace(props) {
     return (
         <AuthLayout>
             <MarketplaceThemes />
-            <br />
-            <MyThemes accountInfo={accountInfo} fetchAccountInfo={fetchAccountInfo} />
         </AuthLayout>
     )
 

@@ -94,7 +94,7 @@ export default function MyThemes() {
                         <FontAwesomeIcon icon={faEdit} />
                     </div>
                     <div className={'d-flex'}>
-                        <ButtonSubmit type={"button"} hideArrow={isCurrentTheme} disabled={isCurrentTheme} label={isCurrentTheme ? "current theme" : "deploy"} processingLabel={"deploying"} processing={deployingTheme && deployingTheme.id === theme.id} onClick={() => deployTheme(theme)} className={`btn-black ${styles.deploy}`} style={{ marginRight: '24px' }} />
+                        <ButtonSubmit type={"button"} hideArrow={isCurrentTheme} label={isCurrentTheme ? "edit" : "deploy"} processingLabel={"deploying"} processing={deployingTheme && deployingTheme.id === theme.id} onClick={() => deployTheme(theme)} className={`${isCurrentTheme ? styles.blueBtn : 'btn-black'} ${styles.deploy}`} style={{ marginRight: '24px' }} />
                         <button type={"button"} onClick={() => deleteTheme(theme.id)} className={styles.delete}><FontAwesomeIcon icon={faTrashAlt} /></button>
                     </div>
                 </div>

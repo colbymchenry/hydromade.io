@@ -219,3 +219,14 @@
         transform:rotate(360deg);
     }
 }
+
+.blueBtn {
+    background-color: #009ef7;
+    color: white;
+    border: 2px solid #006ea6;
+    transition: all 0.3s ease;
+}
+
+.blueBtn:hover {
+    background-color: #0075b2;
+}
