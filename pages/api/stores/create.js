@@ -1,6 +1,7 @@
 import admin from 'firebase-admin'
 import {getUserByUID, runAdminQuery} from "../../../lib/firebase-admin";
 
+// TODO: Implement on all API routes await admin.auth().verifyIdToken(req.headers["authorization"]);
 export default async function handler(req, res) {
 
     if (!req.query.uid) return res.status(400).json({});
